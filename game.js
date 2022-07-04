@@ -8,6 +8,7 @@ function computerPlay(){
     return outcome[rand];
 }
 
+let score = 0;
 
 function play(playerSelection, computerSelection){
 
@@ -15,6 +16,7 @@ function play(playerSelection, computerSelection){
 
     playerSelection.toLowerCase();
     if(playerSelection === 'rock' && computerSelection === 'scissors'){
+        score++;
         return 'You Win! Rock beats Scissors';
     }
     else if(playerSelection === 'rock' && computerSelection === 'paper'){
@@ -24,9 +26,11 @@ function play(playerSelection, computerSelection){
         return 'You Lose! Scissors beats Paper';
     }
     else if(playerSelection === 'paper' && computerSelection === 'rock'){
+        score++;
         return 'You Win! Paper beats Rock';
     }
     else if(playerSelection === 'scissors' && computerSelection === 'paper'){
+        score++;
         return 'You Win! Scissors beats Paper';
     }
     else if(playerSelection === 'scissors' && computerSelection === 'rock'){
@@ -39,8 +43,21 @@ function play(playerSelection, computerSelection){
         return 'Enter correct input!';
     }
 }
-for(let i=0; i<5; i++){
 
-    let playerInput = prompt("Enter rock, paper or scissors");
-    console.log(play(playerInput, computerPlay()));
+const container = document.querySelector('.second');
+
+function display(playerInput){
+    const message = document.createElement('p');
+    message.classList.add('message');
+    message.textContent = play(playerInput, computerPlay());
+    container.appendChild(message);
+    if(score === 5){
+        alert('You won!');
+    }
 }
+
+const buttons = document.querySelectorAll('.btn');
+
+buttons.forEach((button) => {
+  button.addEventListener('click', () => display(button.id))
+});
